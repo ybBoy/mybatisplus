@@ -3,6 +3,13 @@
 <mapper namespace="com.yb.mybatisplus.dao.UserMapper">
 
     <select id="testDB" resultType="int">
-        select count(*) from user
+        select count(*) from t_user
     </select>
+
+    <update id="updateBatchByIds">
+        update t_user
+        set age = age - #{age}
+        ${ew.customSqlSegment}
+
+    </update>
 </mapper>

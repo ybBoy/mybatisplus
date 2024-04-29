@@ -20,10 +20,34 @@ class MybatisplusApplicationTests {
         userService.testDB();
     }
 
+    @Test
+    void query(){
+        userService.query();
+    }
+
+    @Test
+    void queryLamad(){
+        userService.queryLamad();
+    }
 
     @Test
     void count(){
         userService.count();
+    }
+
+    @Test
+    void insert(){
+        userService.insert();
+    }
+
+    @Test
+    void update(){
+        userService.update();
+    }
+
+    @Test
+    void updateBatch(){
+        userService.updateBatch();
     }
 
 }
