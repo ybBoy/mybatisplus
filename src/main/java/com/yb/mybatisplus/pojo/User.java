@@ -1,8 +1,6 @@
 package com.yb.mybatisplus.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,17 +22,15 @@ import java.util.Date;
 public class User {
 
     @TableId(type = IdType.AUTO)
-    private int id;
+    private Long id;
 
     private String name;
 
-    private int age;
+    private Integer age;
 
-    private Date birthday;
-
-    private String adress;
-
+    @TableField(fill = FieldFill.INSERT)
     private Date cjsj;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gxsj;
 }
