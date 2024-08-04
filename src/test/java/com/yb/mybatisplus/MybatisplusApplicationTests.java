@@ -1,9 +1,14 @@
 package com.yb.mybatisplus;
 
+import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import com.yb.mybatisplus.pojo.User;
 import com.yb.mybatisplus.service.UserService;
 import com.yb.mybatisplus.util.RandomName;
@@ -28,6 +33,35 @@ class MybatisplusApplicationTests {
         System.out.println(count);
     }
 
+    /**
+     * Db 解决循环依赖的问题
+     */
+    @Test
+    void countDB(){
+        Long count = Db.lambdaQuery(User.class).eq(User::getName, "何云雪").count();
+        System.out.println(count);
+
+        long count1 = Db.count(User.class);
+        System.out.println(count1);
+
+        User build = User.builder().name("何云雪").build();
+        LambdaQueryChainWrapper<User> wrapper = Db.lambdaQuery(User.class).like(User::getName, "雪");
+        AbstractWrapper<User, SFunction<User, ?>, LambdaQueryWrapper<User>> wrapper1 = wrapper.getWrapper();
+        long count2 = Db.count(wrapper1);
+
+        System.out.println(count2);
+    }
+
+    @Test
+    void page(){
+        int start = 3;
+        int size = 10;
+        Page<User> page = new Page<>(start, size);
+        Page<User> pageList = userService.lambdaQuery().page(page);
+        System.out.println(pageList.getTotal());
+        System.out.println(pageList.getRecords());
+    }
+
     public int getAge(){
         Random random = new Random();
         return random.nextInt(100) + 1;
@@ -39,7 +73,6 @@ class MybatisplusApplicationTests {
                         .age(getAge()).name(RandomName.build())
                 .build());
         System.out.println(b);
-
     }
 
     /**

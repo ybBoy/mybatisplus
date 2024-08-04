@@ -33,4 +33,12 @@ public class User {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gxsj;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

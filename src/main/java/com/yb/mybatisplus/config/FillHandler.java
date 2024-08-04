@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @Auther: yb
  * @Date: 2024/5/6 13:39
- * @Description:
+ * @Description: 自动给表的默认字段赋值
  * @Version 1.0.0
  */
 @Component
