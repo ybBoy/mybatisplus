@@ -145,15 +145,4 @@ class MybatisplusApplicationTests {
         System.out.println(b);
     }
 
-    @Test
-    void queryWrapper(){
-        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-
-        wrapper.likeLeft(User::getName, "张")
-                .or(i -> i.gt(User::getAge, 10).lt(User::getAge, 50));
-
-        List<User> list = userService.list(wrapper);
-        System.out.println(list.size());
-    }
-
 }
